@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>add drug</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f0f2f5;
+            margin: 20px;
+            color: #333;
+        }
+        h1{
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        h2{
+            text-align: right;
+            margin-bottom: 20px;
+            color: #34495e;
+            font-size: 18px;
+        }
+        form{
+            margin: auto;
+            border-radius: 10px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+
+        }
+        label{
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"], input[type="number"],  input[type="date"]{
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        input[type="submit"]{
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+            input[type="submit"]:hover{
+            background-color: #5dbeff;  
+        }
+        a{
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>FXM drug management</h1>
+    <h2>{{ user.get_role() }} ({{ user.username }})</h2>
+
+<h1>add new stock</h1>
+
+   <form method="POST">
+
+    <label>drug Name:</label><br>
+    <input type="text" name="name" required>
+    <br><br>
+    
+    <label>drug type: </label><br>
+    <input type="text" name="type" required>
+    <br>
+
+    <label>drug quantity: </label><br>
+    <input type="number" name="quantity" min="1" required>
+    <br><br>
+
+    <label>drug batch Number: </label><br>
+    <input type="text" name="batch" required>
+    <br><br>
+
+    <label>drug expiry date: </label><br>
+    <input type="date" name="expiry" required>
+    <br> <br>
+
+    <input type="submit" value="Add Drug">
+
+    </form>
+
+    <br>
+    <a href="/">inventory list</a>
+    
+</body>
+</html>

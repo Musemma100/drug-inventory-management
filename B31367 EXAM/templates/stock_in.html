@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock In Drug</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f0f2f5;
+            margin: 20px;
+            color: #333;
+        }
+        h1{
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        h2{
+            text-align: right;
+            margin-bottom: 20px;
+            color: #34495e;
+            font-size: 18px;
+        }
+        form{
+            background-color: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        label{
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        select, input[type="number"]{
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        input[type="submit"]{
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+            input[type="submit"]:hover{
+            background-color: #5dbeff;  
+        }
+        a{
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+    </style>
+</head>
+<body>
+    <h2>Logged in as: {{ user.get_role() }} ({{ user.username }})</h2>
+    <h1>Stock In Drug</h1>
+    <form method="POST">
+        <label for="batch">Select Drug (Batch Number):</label><br>
+        <select name="batch" required>
+            {% for drug in drugs %}
+            <option value="{{ drug.batch_number }}">{{ drug.name }} ({{ drug.batch_number }})</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Quantity to Add:</label><br>
+        <input type="number" name="amount" required min="1"><br><br>
+
+        <input type="submit" value="Stock In">
+    </form>
+
+    <br>
+    <a href="/">Back to Inventory</a>
+</body>
+</html>

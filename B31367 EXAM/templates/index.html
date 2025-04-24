@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>drug inventory</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f0f2f5;
+            margin: 20px;
+            color: #333;
+        }
+        h1{
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        h2{
+            text-align: right;
+            margin-bottom: 20px;
+            color: #34495e;
+            font-size: 18px;
+        }
+        a{
+            display: inline-block;
+            margin: 10px 0;
+            padding: 8px 12px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        a:hover{
+            background-color:#2980b9;
+        }
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        th, td{
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th{
+            background-color: #3498db;
+            color: wheat;
+        }
+        tr:nth-child(even){
+            background-color: #f9f9f9;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input[type="number"]{
+            width: 70px;
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+        input[type="submit"]{
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+        input[type="submit"]:hover{
+            background-color: #0056b3;
+        }
+        p a{
+            background-color: #3498db;  
+        }
+        p a:hover{
+            background-color: #5dbeff;  
+        }
+    </style>
+</head>
+<body>
+    
+<h1>FXM drug management</h1>
+<h2>{{ user.get_role() }} ({{ user.username }})</h2>
+
+    <a href="/add_drug">Add New Drug</a>
+    
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Quantity</th>
+                <th>Batch</th>
+                <th>Expiry</th>
+                <th>Status</th>
+                <th>Stock Out</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for drug in drugs %}
+            <tr>
+                <td>{{ drug.name }}</td>
+                <td>{{ drug.drug_type }}</td>
+                <td>{{ drug.get_quantity() }}</td>
+                <td>{{ drug.batch_number }}</td>
+                <td>{{ drug.expiry_date }}</td>
+                <td>
+                    {% if drug.is_expired() %}
+                        Expired
+                    {% elif drug.is_low_stock() %}
+                        Low Stock
+                    {% else %}
+                        OK
+                    {% endif %}
+                </td>
+                <td>
+                    <form method="POST" action="/stock_out">
+                        <input type="hidden" name="batch" value="{{ drug.batch_number }}">
+                        <input type="number" name="amount" placeholder="Qty" required min="1">
+                        <input type="submit" value="Stock Out">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p><a href="/stock_in">Stock In Drug</a></p>
+    <p><a href="/low_stock">View Drugs with low stock</a></p>
+</body>
+</html>
